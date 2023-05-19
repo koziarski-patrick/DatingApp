@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">EAZY6</a>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <<ng-container *ngIf="accountService._currentUser$ | async">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="/members"
+            routerLinkActive="active">Surveys</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active">Placeholder</a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/messages"
+            routerLinkActive="active"
+            tabindex="-1">Placeholder</a>
+        </li>
+      </ng-container>
+    </ul>
+
+    <!-- <div class="dropdown" *ngIf="loggedIn" dropdown>
+        <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>
+          {{"Welcome " + model.username}}
+        </a>
+        <ul class="dropdown-menu mt-3" *dropdownMenu>
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+        </ul>
+      </div> -->
+    <form
+      #loginForm="ngForm"
+      class="d-flex"
+      (ngSubmit)="login()"
+      autocomplete="off"
+      *ngIf="!(accountService._currentUser$ | async)">
+      <input
+        name="username"
+        [(ngModel)]="model.username"
+        class="form-control me-2"
+        type="text"
+        placeholder="Username"
+        />
+      <input
+        name="password"
+        [(ngModel)]="model.password"
+        class="form-control me-2"
+        type="password"
+        placeholder="Password"
+        />
+      <button class="btn btn-outline-success" type="submit">Login</button>
+    </form>
+  </div>
+  <div
+    class="collapse navbar-collapse navbar-right"
+    id="navbarNavDarkDropdown"
+    *ngIf="accountService._currentUser$ | async as user">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <button
+          class="btn btn-dark dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Welcome {{ user.username | titlecase}}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li>
+            <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

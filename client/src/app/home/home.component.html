@@ -1,0 +1,18 @@
+<div class="container mt-5">
+    <div *ngIf="!registerMode" style="text-align: center;">
+        <h1>Welcome to Eazy6 Survey</h1>
+        <p class="lead">Explore and participate in surveys effortlessly!</p>
+        <div class="text-center">
+            <button (click)="registerToggle()" class="btn btn-primary btn-lg mt-2 me-2">Register</button>
+            <button class="btn btn-primary btn-info btn-lg mt-2">Learn more</button>
+        </div>
+    </div>
+    <div *ngIf="registerMode" class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+            </div>
+        </div>
+    </div>
+
+</div>
