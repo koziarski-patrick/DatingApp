@@ -1,46 +1,63 @@
-import { Component } from '@angular/core';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, ViewChild} from '@angular/core';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Survey } from 'src/app/_models/survey';
+import { SurveyService } from 'src/app/_services/survey.service';
+import { zip } from 'rxjs';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  timeleft: number;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H', timeleft: 10},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He', timeleft: 10},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li', timeleft: 10},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be', timeleft: 10},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B', timeleft: 10},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C', timeleft: 10},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N', timeleft: 10},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O', timeleft: 10},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F', timeleft: 10},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne', timeleft: 10},
-];
-/**
- * @title Table with sorting
- */
+
 @Component({
   selector: 'app-member-list',
   templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.css']
+  styleUrls: ['./member-list.component.css'],
 })
-export class MemberListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'timeleft'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+export class MemberListComponent implements AfterViewInit, OnInit {
+  displayedColumns: string[] = ['title', 'description', 'shareableURL'];
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  surveys: Survey[] = []; // The surveys property is an array of Survey objects
+
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private _surveyService: SurveyService
+  ) {}
+
+  ngOnInit(): void {
+    // this.fetchSurveys(); // The fetchSurveys method is called when the component is initialized
+  }
+
+  dataSource: any;
+  // fetchSurveys(): void {
+  //   // The fetchSurveys method is used to retrieve the surveys from the API (via the SurveyService)
+  //   this._surveyService.getSurveys().subscribe({
+  //     next: (surveys) => {
+  //       this.surveys = surveys;
+  //       this.dataSource = new MatTableDataSource<Survey>(this.surveys);
+  //       // this.dataSource.sort = this.sort;
+  //       console.log('Surveys retrieved:', this.surveys); // The surveys are logged to the console
+  //     },
+  //     error: (error) => {
+  //       console.error('Failed to retrieve surveys:', error);
+  //     },
+  //   });
+  // }
+
+  getShareableURL(survey: Survey): string {
+    // The getShareableURL method is used to retrieve the shareable URL for a survey
+    return survey.shareableURL;
+  }
+
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+  ngAfterViewInit(): void {
+    zip(this._surveyService.getSurveys()).subscribe(([surveys]) => {
+      this.surveys = surveys;
+      this.dataSource = new MatTableDataSource(this.surveys);
+      this.dataSource.sort = this.sort;
+      console.log('Surveys retrieved:', this.surveys);
+    });
   }
 
   /** Announce the change in sort state for assistive technology. */

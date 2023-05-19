@@ -15,8 +15,12 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ToastrModule } from 'ngx-toastr';
-import { MatSortModule } from '@angular/material/sort';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
+
 
 @NgModule({
   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, MemberListComponent, MemberDetailComponent, ListsComponent, MessagesComponent],
@@ -29,10 +33,10 @@ import { MatTableModule } from '@angular/material/table';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
+    ClipboardModule,
+    MatButtonModule,
+    MatTableModule,
     MatSortModule,
-    MatTableModule
-    // BrowserAnimationsModule,
-    // BsDropdownModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
