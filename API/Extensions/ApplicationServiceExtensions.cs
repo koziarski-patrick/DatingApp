@@ -16,6 +16,9 @@ namespace API.Extensions
             });
             services.AddCors(); // This will allow the API to accept requests from any origin.
             services.AddScoped<ITokenService, TokenService>(); // This will add the TokenService to the services container.
+            services.AddScoped<IUserRepository, UserRepository>(); // This will add the UserRepository to the services container.
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // This will add the AutoMapper to the services container.
+            
             return services;
         }
     }

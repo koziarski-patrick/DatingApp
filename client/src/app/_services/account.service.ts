@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   // This service is used to communicate with the API for account related functionality such as login and register methods (singleton service, lives for the lifetime of the application)
-  baseUrl = 'http://localhost:5289/api/'; // The base URL for the API
+  baseUrl = environment.apiUrl; // The base url is set to the apiUrl from the environment file
   private _currentUserSource = new BehaviorSubject<User | null>(null); // The currentUserSource is used to store the current user (the BehaviorSubject is used to store the current user and emit the user to any component that is subscribed to it)
   _currentUser$ = this._currentUserSource.asObservable(); // The currentUser$ is used to subscribe to the currentUserSource (the $ is a convention used to indicate that the variable is an observable)
 
