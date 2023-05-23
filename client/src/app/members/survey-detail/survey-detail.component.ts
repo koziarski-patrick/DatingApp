@@ -4,11 +4,11 @@ import { Survey } from 'src/app/_models/survey';
 import { SurveyService } from 'src/app/_services/survey.service';
 
 @Component({
-  selector: 'app-member-detail',
-  templateUrl: './member-detail.component.html',
-  styleUrls: ['./member-detail.component.css'],
+  selector: 'app-survey-detail',
+  templateUrl: './survey-detail.component.html',
+  styleUrls: ['./survey-detail.component.css'],
 })
-export class MemberDetailComponent implements OnInit {
+export class SurveyDetailComponent implements OnInit {
   survey: Survey | undefined;
 
   constructor(
@@ -16,27 +16,29 @@ export class MemberDetailComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadSurvey();
+  }
 
   loadSurvey() {
-    this.route.params.subscribe(
-      (params) => {
+    this.route.params.subscribe({
+      next: (params) => {
         const id = params['id'];
         if (id) {
-          this.surveyService.getSurvey(id).subscribe(
-            (survey) => {
+          this.surveyService.getSurvey(id).subscribe({
+            next: (survey: Survey) => {
               this.survey = survey;
               console.log('Survey retrieved:', this.survey);
             },
-            (error) => {
-              console.error('Failed to retrieve survey:', error);
-            }
-          );
+            error: (error) => {
+              console.error('Error retrieving survey:', error);
+            },
+          });
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Error retrieving route params:', error);
-      }
-    );
+      },
+    });
   }
 }

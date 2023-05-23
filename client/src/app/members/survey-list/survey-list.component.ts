@@ -9,11 +9,11 @@ import { zip } from 'rxjs';
 
 
 @Component({
-  selector: 'app-member-list',
-  templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.css'],
+  selector: 'app-survey-list',
+  templateUrl: './survey-list.component.html',
+  styleUrls: ['./survey-list.component.css'],
 })
-export class MemberListComponent implements AfterViewInit, OnInit {
+export class SurveyListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['title', 'description', 'shareableURL'];
 
   surveys: Survey[] = []; // The surveys property is an array of Survey objects

@@ -29,8 +29,8 @@ export class NavComponent implements OnInit {
     this.accountService.login(this.model).subscribe({
       next: () => {
         // The subscribe method is used to subscribe to the observable returned by the login method in the AccountService
-        // this.router.navigate(['/members'], {relativeTo: this.route}); // The router is used to navigate to the members page
-        this.router.navigateByUrl('/members'); // The router is used to navigate to the members page
+        // this.router.navigate(['/surveys'], {relativeTo: this.route}); // The router is used to navigate to the surveys page
+        this.router.navigateByUrl('/surveys'); // The router is used to navigate to the surveys page
       },
       error: (error) => {
         // The error method is called if there is an error returned from the API
