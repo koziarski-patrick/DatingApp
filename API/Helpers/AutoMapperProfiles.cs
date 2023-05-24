@@ -1,3 +1,4 @@
+using API.Controllers;
 using API.DTOs;
 using API.Entities;
 using AutoMapper;
@@ -10,6 +11,8 @@ namespace API.Helpers
         {
             CreateMap<AppUser, MemberDto>(); // Map the properties from AppUser to MemberDto
             CreateMap<Survey, SurveyDto>(); // Map the properties from Survey to SurveyDto
+            CreateMap<Answer, AnswerDto>(); // Map the properties from Answer to AnswerDto
+            CreateMap<Question, QuestionDto>(); // Map the properties from Question to QuestionDto
         }
     }
 

@@ -8,7 +8,7 @@ import { User } from './_models/user';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit { // The AppComponent is the root component of the application (the root component is the first component that is loaded when the application starts)
-  title = 'Dating App';
+  title = 'EAZY6 Survey App';
 
   constructor(private accountService: AccountService) {}
 

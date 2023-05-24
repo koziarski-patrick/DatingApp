@@ -14,8 +14,6 @@ namespace API.Entities
         [MaxLength(500)]
         public string Text { get; set; }
 
-        public bool IsCorrect { get; set; } // Property to indicate if it is the correct answer
-
         [ForeignKey("QuestionID")]
         public Question Question { get; set; }
     }

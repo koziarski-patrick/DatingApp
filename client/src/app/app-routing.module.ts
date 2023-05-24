@@ -14,8 +14,8 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
     children: [
-      { path: 'surveys', component: SurveyListComponent },
-      { path: 'survey/:id', component: SurveyDetailComponent },
+      { path: 'surveys', component: SurveyListComponent, children: []},
+      { path: 'surveys/survey/:id', component: SurveyDetailComponent },
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessagesComponent },
     ],

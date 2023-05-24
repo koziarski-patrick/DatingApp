@@ -1,1 +1,44 @@
-<h1>{{survey?.title}}</h1>
+<h1>{{ survey?.title }}</h1>
+<div class="row col-12">
+  <div class="bg-white px-4">
+    <p class="fw-bold">{{ survey?.description }}</p>
+    <div *ngFor="let question of questions">
+      <h4 class="fw-bold mt-3">{{ question.text }}</h4>
+      <div *ngFor="let answer of question.answers">
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="question{{ question.questionID }}" [value]="answer.answerID" />
+          <label class="form-check-label" for="question{{ question.questionID }}">
+            {{ answer.text }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-end">
+    <button type="button" class="btn btn-primary me-2">Back</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+
+
+<!-- <h1>{{ survey?.title }}</h1>
+<div class="row col-12">
+  <div class="bg-white px-4">
+    <p class="fw-bold">{{ survey?.description }}</p>
+    <div *ngFor="let question of questions">
+      <h4 class="fw-bold mt-3">{{ question.text }}</h4>
+      <div *ngFor="let answer of answers">
+        <div *ngIf="answer.questionID === question.questionID" class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="question{{ question.questionID }}" [value]="answer.answerID" />
+          <label class="form-check-label" for="question{{ question.questionID }}">
+            {{ answer.text }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-end">
+    <button type="button" class="btn btn-primary me-2">Back</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div> -->

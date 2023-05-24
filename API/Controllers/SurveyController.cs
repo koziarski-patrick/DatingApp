@@ -29,11 +29,39 @@ namespace API.Controllers
 
         [HttpGet("{id}")] // .../api/survey/1
         public async Task<ActionResult<SurveyDto>> GetSurvey(int id)
-        {   
+        {
             // Covernet string to int 
             // int surveyId = Convert.ToInt32(id);
             var survey = await _context.Surveys.FindAsync(id);
             return _mapper.Map<SurveyDto>(survey); // Map the user to the MemberDto
+        }
+
+        // [HttpGet("{id}/details")] // .../api/survey/1/details
+        // public async Task<ActionResult<SurveyDto>> GetSurveyDetails(int id)
+        // {
+        //     var survey = await _context.Surveys.FindAsync(id);
+        //     return _mapper.Map<SurveyDto>(survey);
+        // }
+
+        [HttpGet("{id}/questions")] // .../api/survey/1/questions
+        public async Task<ActionResult<IEnumerable<QuestionDto>>> GetQuestionsForSurvey(int id)
+        {
+            var questions = await _context.Questions
+                .Where(q => q.SurveyID == id)
+                .ToListAsync();
+
+            var questionsToReturn = _mapper.Map<IEnumerable<QuestionDto>>(questions);
+            return Ok(questionsToReturn);
+        }
+
+        [HttpGet("{id}/answers")]
+        public async Task<ActionResult<IEnumerable<Answer>>> GetAnswersByQuestion(int id)
+        {
+            var answers = await _context.Answers
+                .Where(a => a.QuestionID == id)
+                .ToListAsync();
+
+            return answers;
         }
     }
 }
