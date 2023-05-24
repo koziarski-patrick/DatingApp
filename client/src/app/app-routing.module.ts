@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { SurveyListComponent } from './members/survey-list/survey-list.component';
-import { SurveyDetailComponent } from './members/survey-detail/survey-detail.component';
+import { SurveyListComponent } from './surveys/survey-list/survey-list.component';
+import { SurveyDetailComponent } from './surveys/survey-detail/survey-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { authGuard } from './_guards/auth.guard';
